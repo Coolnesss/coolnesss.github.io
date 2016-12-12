@@ -24,7 +24,7 @@ github_username:  Coolnesss
 # Build settings
 markdown: kramdown
 highlighter: rouge
-theme: jekyll-athena
+theme: minima
 gems:
   - jekyll-feed
 exclude:

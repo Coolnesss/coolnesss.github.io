@@ -101,7 +101,7 @@ Alright, and we're pretty much done already! Amazingly, we can now require the `
 
 So this is pretty neat. With a few short steps we were able to wrap our C++ class into a full-fledged Ruby class. But let's go even further. Wouldn't it be cool if our `word_count` method was available on any string in Ruby? After all, why make a separate class for something that should clearly be a job of the `String` class.
 
-Here's where the power of Ruby really shines. We can simply monkey-patch the `String` class to include a method that uses our `Frequency` implementation. While you probably [actually should not do it his way](http://www.justinweiss.com/articles/3-ways-to-monkey-patch-without-making-a-mess/), we'll just write some simple code for illustration.
+Here's where the power of Ruby really shines. We can simply monkey-patch the `String` class to include a method that uses our `Frequency` implementation. While you probably [actually should not do it this way](http://www.justinweiss.com/articles/3-ways-to-monkey-patch-without-making-a-mess/), we'll just write some simple code for illustration.
 ```ruby
 # frequency.rb
 require './frequency.so'
@@ -118,7 +118,6 @@ end
 Note that we have to be explicit about requiring the actual `.so` object this time around, since we have two files in our folder that are both called `frequency`. Let's test our code out.
 
 ```ruby
-
 [1] pry(main)> require './frequency.rb'
 => true
 [2] pry(main)> "cool stuff guys".count_word "cool"

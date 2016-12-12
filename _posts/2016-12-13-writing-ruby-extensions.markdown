@@ -102,6 +102,7 @@ Alright, and we're pretty much done already! Amazingly, we can now require the `
 So this is pretty neat. With a few short steps we were able to wrap our C++ class into a full-fledged Ruby class. But let's go even further. Wouldn't it be cool if our `word_count` method was available on any string in Ruby? After all, why make a separate class for something that should clearly be a job of the `String` class.
 
 Here's where the power of Ruby really shines. We can simply monkey-patch the `String` class to include a method that uses our `Frequency` implementation. While you probably [actually should not do it this way](http://www.justinweiss.com/articles/3-ways-to-monkey-patch-without-making-a-mess/), we'll just write some simple code for illustration.
+
 ```ruby
 # frequency.rb
 require './frequency.so'
@@ -139,6 +140,7 @@ end
 ```
 
 And
+
 ```ruby
 [2] pry(main)> f = Frequency.new "great examples, really"
 => #<Frequency:0x000000022265f8>

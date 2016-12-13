@@ -65,7 +65,6 @@ require 'mkmf-rice'
 $CXXFLAGS += " -std=c++11 "
 $CXXFLAGS += " -Ofast "
 create_makefile('frequency/frequency')
-
 ```
 
 Here we're also adding some compiler flags, clearly we want our C++ code to be as fast as possible so we use `-Ofast`, and we'd like to use C++11 features so we set that flag as well.
@@ -113,7 +112,6 @@ class String
     f.count_word word
   end
 end
-
 ```
 
 Note that we have to be explicit about requiring the actual `.so` object this time around, since we have two files in our folder that are both called `frequency`. Let's test our code out.

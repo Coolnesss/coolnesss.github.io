@@ -3,6 +3,7 @@ layout: post
 title:  "Writing Ruby extensions with Rice"
 date:   2016-12-13 00:53:41 +0200
 categories: ruby C++
+author: Chang
 ---
 
 Writing Ruby is meant to be fast and intuitive, saving time for the programmer and getting things done fast. This often comes with a cost on actual software speed. A lot of times this is not something one needs to worry about, but sometimes you just feel that function you wrote would be so much faster when written in C or C++. Maybe if you're a seasoned C veteran, you might even feel like it would be easier to implement in the language you know so well.
@@ -13,7 +14,7 @@ This guide will focus on [Rice](https://github.com/jasonroelofs/rice) with an em
 
 Let's start by writing some C++ code. Our idea is to count the occurrences of a substring in a string. We'll start by creating a C++ class that wraps this functionality.
 
-```c
+```c++
 // File frequency.cpp
 #include <string.h>
 #include "rice/Class.hpp"

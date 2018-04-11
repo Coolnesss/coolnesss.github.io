@@ -1,0 +1,9 @@
+---
+---
+
+@import "{{ site.theme }}";
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans');
+
+p, h1{
+    font-family: 'Fira Sans', sans-serif;
+}

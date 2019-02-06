@@ -8,7 +8,8 @@ This is my modest programming blog where I post stuff that interests me from tim
 
 #### My "career":
 
-* BSc, MSc at Univeristy of Helsinki (2014 - 2018)
+* BSc at Univeristy of Helsinki (2014 - 2016)
+* MSc at Univeristy of Helsinki (2016 - 2018)
 * PhD student at University of Helsinki (2019 - 2022)
     * Studying Bayesian deep learning with applications in high dimensional signals, images, etc
 

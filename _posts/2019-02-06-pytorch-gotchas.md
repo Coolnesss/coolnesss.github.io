@@ -37,12 +37,12 @@ for input, output in training_loader:
 There's a subtle memory leak in the following code:
 
 ```python
-    mean_loss = 0
-    for input, target in dataloader:
-        # ...
-        loss.backward()
-        mean_loss += loss
-    mean_loss /= len(dataloader)
+mean_loss = 0
+for input, target in dataloader:
+    # ...
+    loss.backward()
+    mean_loss += loss
+mean_loss /= len(dataloader)
 ```
 
 Since PyTorch 0.4, `loss` is a 0-dimensional `Tensor`, which means that the addition to `mean_loss` keeps around the gradient history of each `loss`. The additional memory use will linger until `mean_loss` goes out of scope, which could be much later than intended. In particular, if you run evaluation during training after each epoch, you could get out of memory errors when trying to allocate GPU memory for the testing samples.
@@ -54,21 +54,21 @@ If you're coming from other languages, the Python scope of variables may not be 
 To avoid keeping Tensors allocated after they are no longer needed, one may declare a [closure](https://www.programiz.com/python-programming/closure). This assures us that any variables declared inside the closure go out of scope when the closure terminates. A practical example:
 
 ```python
-    for input, target in dataloader:
-        def handle_batch():
-            x, y = input.to(device), output.to(device)
-            pred = model(x)
-            loss = loss_fn(pred, y)
-            loss.backward()
-            optimizer.step()
+for input, target in dataloader:
+    def handle_batch():
+        x, y = input.to(device), output.to(device)
+        pred = model(x)
+        loss = loss_fn(pred, y)
+        loss.backward()
+        optimizer.step()
 
-        handle_batch()
-        # All of the variables defined above are now out of scope!
-        # On CPU, they are already deallocated. On GPU, they will be deallocated soon.
+    handle_batch()
+    # All of the variables defined above are now out of scope!
+    # On CPU, they are already deallocated. On GPU, they will be deallocated soon.
 
-    # Make sure deallocation has taken place
-    if torch.cuda.is_available():
-        torch.cuda.synchronize()
+# Make sure deallocation has taken place
+if torch.cuda.is_available():
+    torch.cuda.synchronize()
 ```
 
 Since communication between your Python code and the GPU is asynchronous, the memory reserved by the closure might not have been deallocated right after training halts. To make sure this happens, one may call [`torch.cuda.synchronize()`](https://pytorch.org/docs/stable/_modules/torch/cuda.html#synchronize) before allocating more memory. This is useful if you are running testing or validation code after each epoch, to avoid Out Of Memory errors.
